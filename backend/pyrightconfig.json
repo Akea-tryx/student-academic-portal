@@ -1,0 +1,7 @@
+{
+  "include": ["."],
+  "pythonVersion": "3.10",
+  "pythonPlatform": "All",
+  "reportMissingImports": false,
+  "reportMissingModuleSource": false
+}
