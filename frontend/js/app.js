@@ -29,7 +29,7 @@ const App = {
   },
 
   navigate(page) {
-    const locked = ["lor", "bonafide", "history"];
+    const locked = ["lor", "bonafide", "internship", "history"];
     if (locked.includes(page) && !App.state.student) {
       Toast.show("Complete your profile first to access this service.", "warning");
       App.navigate("profile");
@@ -45,13 +45,14 @@ const App = {
     if (navEl)  navEl.classList.add("active");
 
     if (page === "dashboard") Dashboard.refresh();
-    if (page === "lor")       LOR.init();
+    if (page === "lor")        LOR.init();
+    if (page === "internship") Internship.init();
     if (page === "bonafide")  Bonafide.init();
     if (page === "history")   History.render();
   },
 
   unlockServices() {
-    ["lor", "bonafide", "history"].forEach(s => {
+    ["lor", "bonafide", "internship", "history"].forEach(s => {
       const nav  = document.getElementById("nav-"  + s);
       const lock = document.getElementById("lock-" + s);
       if (nav)  nav.classList.remove("locked");

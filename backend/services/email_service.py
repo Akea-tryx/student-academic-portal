@@ -161,3 +161,62 @@ def _send_smtp(to_emails: list, subject: str, html_body: str):
         logger.error(f"[EMAIL] SMTP error: {e}")
     except Exception as e:
         logger.error(f"[EMAIL] Unexpected error: {e}")
+
+
+def _build_internship_email(student_name, app):
+    return f"""
+    <html>
+    <body style="font-family:Arial,sans-serif;color:#333;padding:24px;max-width:600px;">
+      <div style="background:#E65100;padding:16px 20px;border-radius:8px 8px 0 0;">
+        <h2 style="color:#fff;margin:0;">Academic Services Portal</h2>
+        <p style="color:rgba(255,255,255,0.85);margin:4px 0 0;font-size:13px;">
+          Automated Notification — Internship Approval Request
+        </p>
+      </div>
+      <div style="border:1px solid #ddd;border-top:none;padding:24px;border-radius:0 0 8px 8px;">
+        <p>Dear <strong>{student_name}</strong>,</p>
+        <p>Your <strong>Internship Approval</strong> request has been received.</p>
+        <table style="width:100%;border-collapse:collapse;margin:16px 0;">
+          <tr style="background:#FFF3E0;">
+            <td style="padding:10px;border:1px solid #FFE0B2;font-weight:600;width:40%;">Application ID</td>
+            <td style="padding:10px;border:1px solid #FFE0B2;font-family:monospace;">{app['application_id']}</td>
+          </tr>
+          <tr>
+            <td style="padding:10px;border:1px solid #eee;font-weight:600;">Company</td>
+            <td style="padding:10px;border:1px solid #eee;">{app['company_name']}</td>
+          </tr>
+          <tr style="background:#fafafa;">
+            <td style="padding:10px;border:1px solid #eee;font-weight:600;">Role</td>
+            <td style="padding:10px;border:1px solid #eee;">{app['internship_role']}</td>
+          </tr>
+          <tr>
+            <td style="padding:10px;border:1px solid #eee;font-weight:600;">Type</td>
+            <td style="padding:10px;border:1px solid #eee;">{app['internship_type']}</td>
+          </tr>
+          <tr style="background:#fafafa;">
+            <td style="padding:10px;border:1px solid #eee;font-weight:600;">Duration</td>
+            <td style="padding:10px;border:1px solid #eee;">{app['start_date']} to {app['end_date']}</td>
+          </tr>
+          <tr>
+            <td style="padding:10px;border:1px solid #eee;font-weight:600;">Status</td>
+            <td style="padding:10px;border:1px solid #eee;color:#E65100;font-weight:600;">{app['status']}</td>
+          </tr>
+        </table>
+        <div style="background:#FFF3E0;border-left:4px solid #E65100;padding:14px 16px;border-radius:4px;margin:16px 0;">
+          <strong>Next Steps:</strong><br/>
+          Please contact your <strong>Department Coordinator</strong> to follow up
+          on your internship approval request within <strong>3 working days</strong>.
+        </div>
+        <p style="font-size:12px;color:#888;">This is an automated reminder. Do not reply to this email.</p>
+      </div>
+    </body>
+    </html>
+    """
+
+
+def send_internship_notification(student, application):
+    _dispatch(
+        to_emails=[student["college_email"], student["personal_email"]],
+        subject=f"[Internship Approval Request] {application['application_id']}",
+        html_body=_build_internship_email(student["full_name"], application)
+    )

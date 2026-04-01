@@ -32,3 +32,15 @@ const Api = {
   applyBonafide: (payload) => Api._request("POST", "/bonafide/apply", payload),
   getBonafide:   (appId)   => Api._request("GET",  `/bonafide/${appId}`),
 };
+
+  // ── Internship ────────────────────────────────────────
+  applyInternship: (payload) => Api._request("POST", "/internship/apply", payload),
+  getInternship:   (appId)   => Api._request("GET",  `/internship/${appId}`),
+
+  // ── Admin ─────────────────────────────────────────────
+  adminLogin:      (payload) => Api._request("POST", "/admin/login", payload),
+  adminLogout:     ()        => Api._request("POST", "/admin/logout"),
+  adminDashboard:  ()        => Api._request("GET",  "/admin/dashboard"),
+  adminApps:       (params)  => Api._request("GET",  `/admin/applications${params || ""}`),
+  adminStudents:   ()        => Api._request("GET",  "/admin/students"),
+  adminReview:     (payload) => Api._request("POST", "/admin/review", payload),

@@ -14,10 +14,15 @@
     <div class="header-icon">🎓</div>
     <div class="header-title">
       <h1>Academic Services Portal</h1>
-      <p>University Student Services Management System</p>
+      <p>Manipal University Jaipur — Student Services Management</p>
     </div>
   </div>
   <div class="header-user">
+    <a href="admin.html" style="text-decoration:none;">
+      <div class="user-pill" style="margin-right:8px;" title="Admin Panel">
+        🛡️ Admin
+      </div>
+    </a>
     <div class="user-pill" id="userPill" onclick="App.navigate('profile')" title="Click to view profile">
       🔐 Complete Profile
     </div>
@@ -54,6 +59,12 @@
       <span class="lock-icon" id="lock-bonafide">🔒</span>
     </div>
 
+    <div class="nav-item locked" id="nav-internship" onclick="App.navigate('internship')">
+      <span class="nav-icon">💼</span>
+      <span class="nav-label">Internship Approval</span>
+      <span class="lock-icon" id="lock-internship">🔒</span>
+    </div>
+
     <div class="sidebar-section">Records</div>
 
     <div class="nav-item locked" id="nav-history" onclick="App.navigate('history')">
@@ -66,11 +77,11 @@
   <!-- ═══════════════════════════════════ MAIN CONTENT -->
   <main class="main-content">
 
-    <!-- ░░░░░░░░░░░░░░░░░░ DASHBOARD PAGE -->
+    <!-- ░░░░░░░░ DASHBOARD PAGE ░░░░░░░░ -->
     <div class="page active" id="page-dashboard">
       <div class="page-header">
         <h2>🏠 Dashboard</h2>
-        <p>Welcome to the Student Academic Services Portal.</p>
+        <p>Welcome to the MUJ Student Academic Services Portal.</p>
       </div>
 
       <div class="locked-gate" id="dashLockBanner">
@@ -78,7 +89,8 @@
         <h3>Profile Verification Required</h3>
         <p>
           You must complete and submit your student profile before accessing
-          any academic services. This ensures secure, verified access to all features.
+          any academic services. Use your official MUJ email
+          <strong>(name.enrollmentid@muj.manipal.edu)</strong> to register.
         </p>
         <button class="btn btn-primary" onclick="App.navigate('profile')">
           Complete My Profile
@@ -87,7 +99,6 @@
 
       <div id="dashUnlocked" style="display:none;">
         <div class="profile-hero" id="dashHero"></div>
-
         <div class="stats-grid">
           <div class="stat-card">
             <div class="stat-number" id="statTotal">0</div>
@@ -102,16 +113,15 @@
             <div class="stat-label">Approved</div>
           </div>
         </div>
-
         <div class="card">
           <div class="card-title"><span class="ct-icon">⚡</span>Quick Actions</div>
           <div class="quick-actions">
             <button class="btn btn-primary" onclick="App.navigate('lor')">📄 Apply for LOR</button>
             <button class="btn btn-outline" onclick="App.navigate('bonafide')">📜 Request Bonafide</button>
+            <button class="btn btn-outline" onclick="App.navigate('internship')">💼 Internship Approval</button>
             <button class="btn btn-ghost"   onclick="App.navigate('history')">🗂️ My Applications</button>
           </div>
         </div>
-
         <div class="card">
           <div class="card-title"><span class="ct-icon">🕐</span>Recent Applications</div>
           <div id="recentApps">
@@ -124,92 +134,82 @@
       </div>
     </div>
 
-    <!-- ░░░░░░░░░░░░░░░░░░ PROFILE PAGE -->
+    <!-- ░░░░░░░░ PROFILE PAGE ░░░░░░░░ -->
     <div class="page" id="page-profile">
       <div class="page-header">
         <h2>👤 Student Profile</h2>
-        <p>All fields are mandatory. Profile must be verified to access academic services.</p>
+        <p>All fields are mandatory. Your MUJ college email is required for verification.</p>
       </div>
 
       <div class="alert alert-success" id="profileBanner" style="display:none;">
         <span class="alert-icon">✅</span>
+        <div><strong>Profile Verified.</strong> All academic services are now unlocked.</div>
+      </div>
+
+      <div class="alert alert-info">
+        <span class="alert-icon">ℹ️</span>
         <div>
-          <strong>Profile Verified.</strong>
-          All academic services are now unlocked and accessible from the sidebar.
+          Your college email must be your official MUJ email address in the format:
+          <strong>name.enrollmentid@muj.manipal.edu</strong>
+          &nbsp;(e.g. antriksh.2428010079@muj.manipal.edu)
         </div>
       </div>
 
       <div class="card">
-        <div class="card-title">
-          <span class="ct-icon">📋</span>Academic &amp; Personal Information
-        </div>
-
+        <div class="card-title"><span class="ct-icon">📋</span>Academic &amp; Personal Information</div>
         <div class="form-grid">
           <div class="form-group">
             <label for="p_name">Full Name <span class="required-star">*</span></label>
-            <input type="text" id="p_name" placeholder="e.g. Arjun Krishnan" autocomplete="name"/>
+            <input type="text" id="p_name" placeholder="e.g. Antriksh Sharma" autocomplete="name"/>
             <div class="field-err" id="err_p_name"></div>
           </div>
-
           <div class="form-group">
-            <label for="p_regid">Registration ID <span class="required-star">*</span></label>
-            <input type="text" id="p_regid" placeholder="e.g. 21CS001"/>
+            <label for="p_regid">Enrollment / Registration ID <span class="required-star">*</span></label>
+            <input type="text" id="p_regid" placeholder="e.g. 2428010079"/>
             <div class="field-err" id="err_p_regid"></div>
           </div>
-
           <div class="form-group">
             <label for="p_program">Program Type <span class="required-star">*</span></label>
             <select id="p_program">
               <option value="">-- Select Program --</option>
-              <option>UG</option>
-              <option>PG</option>
-              <option>Doctorate</option>
+              <option>UG</option><option>PG</option><option>Doctorate</option>
             </select>
             <div class="field-err" id="err_p_program"></div>
           </div>
-
           <div class="form-group">
             <label for="p_dept">Department <span class="required-star">*</span></label>
             <select id="p_dept">
               <option value="">-- Select Department --</option>
-              <option>CSE</option>
-              <option>CCE</option>
-              <option>ECE</option>
+              <option>CSE</option><option>CCE</option><option>ECE</option>
             </select>
             <div class="field-err" id="err_p_dept"></div>
           </div>
-
           <div class="form-group">
             <label for="p_duration">Course Duration <span class="required-star">*</span></label>
-            <input type="text" id="p_duration" placeholder="e.g. 2021-2025"/>
+            <input type="text" id="p_duration" placeholder="e.g. 2022-2026"/>
             <div class="field-err" id="err_p_duration"></div>
           </div>
-
           <div class="form-group">
             <label for="p_cgpa">CGPA <span class="required-star">*</span></label>
             <input type="number" id="p_cgpa" placeholder="e.g. 8.5" step="0.1" min="0" max="10"/>
             <div class="field-err" id="err_p_cgpa"></div>
           </div>
-
           <div class="form-group">
             <label for="p_cemail">College Email ID <span class="required-star">*</span></label>
-            <input type="email" id="p_cemail" placeholder="arjun@university.edu" autocomplete="email"/>
+            <input type="email" id="p_cemail" placeholder="name.enrollmentid@muj.manipal.edu"/>
             <div class="field-err" id="err_p_cemail"></div>
           </div>
-
           <div class="form-group">
             <label for="p_pemail">Personal Email ID <span class="required-star">*</span></label>
-            <input type="email" id="p_pemail" placeholder="arjun@gmail.com"/>
+            <input type="email" id="p_pemail" placeholder="yourname@gmail.com"/>
             <div class="field-err" id="err_p_pemail"></div>
           </div>
-
           <div class="form-group fg-full">
             <label for="p_mobile">Mobile Number <span class="required-star">*</span></label>
             <input type="tel" id="p_mobile" placeholder="10-digit mobile number" maxlength="10"/>
             <div class="field-err" id="err_p_mobile"></div>
           </div>
         </div>
-
         <div class="form-actions">
           <button class="btn btn-primary" id="saveProfileBtn" onclick="Profile.save()">
             💾 Save &amp; Verify Profile
@@ -218,41 +218,30 @@
       </div>
     </div>
 
-    <!-- ░░░░░░░░░░░░░░░░░░ LOR PAGE -->
+    <!-- ░░░░░░░░ LOR PAGE ░░░░░░░░ -->
     <div class="page" id="page-lor">
       <div class="page-header">
         <h2>📄 Letter of Recommendation</h2>
         <p>Apply for an LOR from your department faculty member.</p>
       </div>
-
       <div class="locked-gate" id="lorGate" style="display:none;">
-        <div class="lg-icon">🔒</div>
-        <h3>Profile Required</h3>
-        <p>Complete your student profile to access the LOR application form.</p>
+        <div class="lg-icon">🔒</div><h3>Profile Required</h3>
+        <p>Complete your student profile to access this service.</p>
         <button class="btn btn-primary" onclick="App.navigate('profile')">Go to Profile</button>
       </div>
-
       <div id="lorForm">
         <div class="alert alert-info">
           <span class="alert-icon">ℹ️</span>
-          <div>
-            Faculty options are automatically filtered to your registered department.
-            A reminder email will be sent to both your email addresses upon submission.
-          </div>
+          <div>Faculty list is filtered to your registered department. A reminder email will be sent to both your email addresses.</div>
         </div>
-
         <div class="card">
           <div class="card-title"><span class="ct-icon">📝</span>LOR Application Form</div>
-
           <div class="form-grid">
             <div class="form-group">
               <label for="lor_faculty">Faculty Member <span class="required-star">*</span></label>
-              <select id="lor_faculty">
-                <option value="">-- Select Faculty --</option>
-              </select>
+              <select id="lor_faculty"><option value="">-- Select Faculty --</option></select>
               <div class="field-err" id="err_lor_faculty"></div>
             </div>
-
             <div class="form-group">
               <label for="lor_purpose">Purpose <span class="required-star">*</span></label>
               <select id="lor_purpose">
@@ -264,50 +253,37 @@
               </select>
               <div class="field-err" id="err_lor_purpose"></div>
             </div>
-
             <div class="form-group fg-full">
               <label for="lor_details">Additional Details</label>
-              <textarea id="lor_details"
-                placeholder="Briefly describe your purpose — target universities, programs, organisations, etc."></textarea>
+              <textarea id="lor_details" placeholder="Target universities, programs, organisations, etc."></textarea>
             </div>
           </div>
-
           <div class="form-actions">
-            <button class="btn btn-ghost"   onclick="LOR.clear()">Clear</button>
-            <button class="btn btn-primary" id="lorSubmitBtn" onclick="LOR.submit()">
-              ✉️ Submit LOR Application
-            </button>
+            <button class="btn btn-ghost" onclick="LOR.clear()">Clear</button>
+            <button class="btn btn-primary" id="lorSubmitBtn" onclick="LOR.submit()">✉️ Submit LOR Application</button>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- ░░░░░░░░░░░░░░░░░░ BONAFIDE PAGE -->
+    <!-- ░░░░░░░░ BONAFIDE PAGE ░░░░░░░░ -->
     <div class="page" id="page-bonafide">
       <div class="page-header">
         <h2>📜 Bonafide Certificate</h2>
         <p>Request an official bonafide certificate from the university.</p>
       </div>
-
       <div class="locked-gate" id="bonGate" style="display:none;">
-        <div class="lg-icon">🔒</div>
-        <h3>Profile Required</h3>
-        <p>Complete your student profile to access the bonafide certificate request form.</p>
+        <div class="lg-icon">🔒</div><h3>Profile Required</h3>
+        <p>Complete your student profile to access this service.</p>
         <button class="btn btn-primary" onclick="App.navigate('profile')">Go to Profile</button>
       </div>
-
       <div id="bonForm">
         <div class="alert alert-warning">
           <span class="alert-icon">⚠️</span>
-          <div>
-            After submission, please visit the <strong>Academic Section</strong> or
-            your <strong>Department Office</strong> within 5 working days to collect the certificate.
-          </div>
+          <div>After submission, visit the <strong>Academic Section</strong> or <strong>Department Office</strong> within 5 working days to collect the certificate.</div>
         </div>
-
         <div class="card">
           <div class="card-title"><span class="ct-icon">📝</span>Bonafide Certificate Request Form</div>
-
           <div class="form-grid">
             <div class="form-group">
               <label for="bon_purpose">Purpose <span class="required-star">*</span></label>
@@ -322,52 +298,109 @@
               </select>
               <div class="field-err" id="err_bon_purpose"></div>
             </div>
-
             <div class="form-group fg-full">
               <label for="bon_reason">Detailed Reason <span class="required-star">*</span></label>
-              <textarea id="bon_reason"
-                placeholder="Describe why you need this certificate and where it will be submitted (min 10 characters)."></textarea>
+              <textarea id="bon_reason" placeholder="Describe why you need this certificate (min 10 characters)."></textarea>
               <div class="field-err" id="err_bon_reason"></div>
             </div>
           </div>
-
           <div class="form-actions">
-            <button class="btn btn-ghost"   onclick="Bonafide.clear()">Clear</button>
-            <button class="btn btn-primary" id="bonSubmitBtn" onclick="Bonafide.submit()">
-              ✉️ Submit Request
-            </button>
+            <button class="btn btn-ghost" onclick="Bonafide.clear()">Clear</button>
+            <button class="btn btn-primary" id="bonSubmitBtn" onclick="Bonafide.submit()">✉️ Submit Request</button>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- ░░░░░░░░░░░░░░░░░░ HISTORY PAGE -->
+    <!-- ░░░░░░░░ INTERNSHIP PAGE ░░░░░░░░ -->
+    <div class="page" id="page-internship">
+      <div class="page-header">
+        <h2>💼 Internship Approval</h2>
+        <p>Submit your internship details for university approval.</p>
+      </div>
+      <div class="locked-gate" id="intGate" style="display:none;">
+        <div class="lg-icon">🔒</div><h3>Profile Required</h3>
+        <p>Complete your student profile to access this service.</p>
+        <button class="btn btn-primary" onclick="App.navigate('profile')">Go to Profile</button>
+      </div>
+      <div id="intForm">
+        <div class="alert alert-info">
+          <span class="alert-icon">ℹ️</span>
+          <div>Submit your internship details for approval. A reminder email will be sent to both your email addresses upon submission.</div>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-icon">📝</span>Internship Approval Form</div>
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="int_company">Company Name <span class="required-star">*</span></label>
+              <input type="text" id="int_company" placeholder="e.g. Google India Pvt. Ltd."/>
+              <div class="field-err" id="err_int_company"></div>
+            </div>
+            <div class="form-group">
+              <label for="int_role">Internship Role <span class="required-star">*</span></label>
+              <input type="text" id="int_role" placeholder="e.g. Software Engineer Intern"/>
+              <div class="field-err" id="err_int_role"></div>
+            </div>
+            <div class="form-group">
+              <label for="int_type">Internship Type <span class="required-star">*</span></label>
+              <select id="int_type">
+                <option value="">-- Select Type --</option>
+                <option>In-Person</option>
+                <option>Remote</option>
+                <option>Hybrid</option>
+              </select>
+              <div class="field-err" id="err_int_type"></div>
+            </div>
+            <div class="form-group">
+              <label for="int_stipend">Stipend</label>
+              <select id="int_stipend">
+                <option value="Unpaid">Unpaid</option>
+                <option value="Paid">Paid</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="int_start">Start Date <span class="required-star">*</span></label>
+              <input type="date" id="int_start"/>
+              <div class="field-err" id="err_int_start"></div>
+            </div>
+            <div class="form-group">
+              <label for="int_end">End Date <span class="required-star">*</span></label>
+              <input type="date" id="int_end"/>
+              <div class="field-err" id="err_int_end"></div>
+            </div>
+            <div class="form-group fg-full">
+              <label for="int_desc">Description <span class="required-star">*</span></label>
+              <textarea id="int_desc" placeholder="Describe your internship role, responsibilities, and what you will be working on (min 20 characters)."></textarea>
+              <div class="field-err" id="err_int_desc"></div>
+            </div>
+          </div>
+          <div class="form-actions">
+            <button class="btn btn-ghost" onclick="Internship.clear()">Clear</button>
+            <button class="btn btn-primary" id="intSubmitBtn" onclick="Internship.submit()">✉️ Submit for Approval</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ░░░░░░░░ HISTORY PAGE ░░░░░░░░ -->
     <div class="page" id="page-history">
       <div class="page-header">
         <h2>🗂️ My Applications</h2>
-        <p>Track the status of all your submitted academic service applications.</p>
+        <p>Track the status of all your submitted applications.</p>
       </div>
-
       <div class="locked-gate" id="historyGate" style="display:none;">
-        <div class="lg-icon">🔒</div>
-        <h3>Profile Required</h3>
+        <div class="lg-icon">🔒</div><h3>Profile Required</h3>
         <p>Complete your student profile to view your application history.</p>
         <button class="btn btn-primary" onclick="App.navigate('profile')">Go to Profile</button>
       </div>
-
       <div id="historyContent">
         <div class="card">
           <div class="card-title">
             <span class="ct-icon">📋</span>All Applications
-            <span style="margin-left:auto;font-size:0.8rem;color:var(--text-muted);font-weight:400;">
-              Click any card to view full details
-            </span>
+            <span style="margin-left:auto;font-size:0.8rem;color:var(--text-muted);font-weight:400;">Click any card to view full details</span>
           </div>
           <div class="app-list" id="appHistoryList">
-            <div class="empty-state">
-              <div class="es-icon">📋</div>
-              <p>No applications submitted yet.</p>
-            </div>
+            <div class="empty-state"><div class="es-icon">📋</div><p>No applications submitted yet.</p></div>
           </div>
         </div>
       </div>
@@ -376,36 +409,31 @@
   </main>
 </div>
 
-<!-- ═══════════════════════════════════════════ TOAST -->
+<!-- TOAST -->
 <div id="toast"></div>
 
-<!-- ══════════════════════════════ APPLICATION MODAL -->
+<!-- MODAL -->
 <div class="modal-overlay" id="appModal" onclick="if(event.target===this) Modal.close()">
   <div class="modal">
     <div class="modal-header">
       <h3 id="modalTitle">Application Details</h3>
       <button class="modal-close" onclick="Modal.close()">✕</button>
     </div>
-    <table class="detail-table">
-      <tbody id="modalBody"></tbody>
-    </table>
-    <div style="text-align:right; margin-top:20px;">
+    <table class="detail-table"><tbody id="modalBody"></tbody></table>
+    <div style="text-align:right;margin-top:20px;">
       <button class="btn btn-primary btn-sm" onclick="Modal.close()">Close</button>
     </div>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════════ SCRIPTS -->
 <script src="js/api.js"></script>
 <script src="js/app.js"></script>
 <script src="js/profile.js"></script>
 <script src="js/lor.js"></script>
 <script src="js/bonafide.js"></script>
+<script src="js/internship.js"></script>
 <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    Dashboard.refresh();
-  });
+  document.addEventListener("DOMContentLoaded", () => { Dashboard.refresh(); });
 </script>
-
 </body>
 </html>
