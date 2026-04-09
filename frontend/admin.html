@@ -1,328 +1,328 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Admin Panel — Academic Services Portal</title>
-  <link rel="stylesheet" href="css/style.css"/>
-  <style>
-    /* ── ADMIN-SPECIFIC STYLES ─────────────────────── */
-    .admin-header { background: #1A1A2E; }
-    .admin-header .header-title h1 { color: #fff; }
-    .admin-header .header-title p  { color: rgba(255,255,255,0.7); }
+ <meta charset="UTF-8"/>
+ <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+ <title>Admin Panel — Academic Services Portal</title>
+ <link rel="stylesheet" href="css/style.css"/>
+ <style>
+ /* ADMIN-SPECIFIC STYLES */
+ .admin-header { background: #1A1A2E; }
+ .admin-header .header-title h1 { color: #fff; }
+ .admin-header .header-title p { color: rgba(255,255,255,0.7); }
 
-    .login-wrap {
-      min-height: calc(100vh - 62px);
-      display: flex; align-items: center; justify-content: center;
-      background: #F9F3EE;
-    }
-    .login-card {
-      background: #fff; border-radius: 14px;
-      padding: 40px 36px; width: 100%; max-width: 400px;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.12);
-      border: 1px solid #E0E0E0;
-    }
-    .login-card .login-icon { font-size: 2.8rem; text-align: center; margin-bottom: 10px; }
-    .login-card h2 { text-align:center; color: #1A1A2E; font-size: 1.3rem; margin-bottom: 4px; }
-    .login-card p  { text-align:center; color: #757575; font-size: 0.85rem; margin-bottom: 24px; }
+ .login-wrap {
+ min-height: calc(100vh - 62px);
+ display: flex; align-items: center; justify-content: center;
+ background: #F9F3EE;
+ }
+ .login-card {
+ background: #fff; border-radius: 14px;
+ padding: 40px 36px; width: 100%; max-width: 400px;
+ box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+ border: 1px solid #E0E0E0;
+ }
+ .login-card .login-icon { font-size: 2.8rem; text-align: center; margin-bottom: 10px; }
+ .login-card h2 { text-align:center; color: #1A1A2E; font-size: 1.3rem; margin-bottom: 4px; }
+ .login-card p { text-align:center; color: #757575; font-size: 0.85rem; margin-bottom: 24px; }
 
-    .admin-layout { display: flex; height: calc(100vh - 62px); }
+ .admin-layout { display: flex; height: calc(100vh - 62px); }
 
-    .admin-sidebar {
-      width: 220px; min-width: 220px;
-      background: #1A1A2E;
-      display: flex; flex-direction: column;
-    }
-    .admin-nav-section {
-      font-size: 0.65rem; text-transform: uppercase;
-      letter-spacing: 1.2px; color: rgba(255,255,255,0.4);
-      font-weight: 700; padding: 16px 18px 4px;
-    }
-    .admin-nav-item {
-      display: flex; align-items: center; gap: 10px;
-      padding: 11px 18px; cursor: pointer;
-      color: rgba(255,255,255,0.65);
-      font-size: 0.86rem; font-weight: 500;
-      border-left: 3px solid transparent;
-      transition: all 0.15s;
-    }
-    .admin-nav-item:hover { background: rgba(255,255,255,0.08); color: #fff; }
-    .admin-nav-item.active {
-      background: rgba(230,81,0,0.2);
-      color: #FF6D00; border-left-color: #E65100;
-      font-weight: 600;
-    }
-    .admin-nav-item .nav-icon { font-size: 1rem; width: 20px; text-align: center; }
+ .admin-sidebar {
+ width: 220px; min-width: 220px;
+ background: #1A1A2E;
+ display: flex; flex-direction: column;
+ }
+ .admin-nav-section {
+ font-size: 0.65rem; text-transform: uppercase;
+ letter-spacing: 1.2px; color: rgba(255,255,255,0.4);
+ font-weight: 700; padding: 16px 18px 4px;
+ }
+ .admin-nav-item {
+ display: flex; align-items: center; gap: 10px;
+ padding: 11px 18px; cursor: pointer;
+ color: rgba(255,255,255,0.65);
+ font-size: 0.86rem; font-weight: 500;
+ border-left: 3px solid transparent;
+ transition: all 0.15s;
+ }
+ .admin-nav-item:hover { background: rgba(255,255,255,0.08); color: #fff; }
+ .admin-nav-item.active {
+ background: rgba(230,81,0,0.2);
+ color: #FF6D00; border-left-color: #E65100;
+ font-weight: 600;
+ }
+ .admin-nav-item .nav-icon { font-size: 1rem; width: 20px; text-align: center; }
 
-    .admin-logout {
-      margin-top: auto; padding: 16px 18px;
-      border-top: 1px solid rgba(255,255,255,0.1);
-    }
+ .admin-logout {
+ margin-top: auto; padding: 16px 18px;
+ border-top: 1px solid rgba(255,255,255,0.1);
+ }
 
-    .admin-main { flex:1; overflow-y:auto; padding: 28px 32px; background: #F9F3EE; }
-    .admin-page { display: none; }
-    .admin-page.active { display: block; animation: fadeIn 0.2s ease; }
+ .admin-main { flex:1; overflow-y:auto; padding: 28px 32px; background: #F9F3EE; }
+ .admin-page { display: none; }
+ .admin-page.active { display: block; animation: fadeIn 0.2s ease; }
 
-    /* Stats */
-    .stats-grid-6 { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; margin-bottom: 22px; }
-    .stat-card-dark {
-      background: #1A1A2E; color: #fff;
-      border-radius: 10px; padding: 18px 14px; text-align: center;
-    }
-    .stat-card-dark .stat-number { color: #FF6D00; font-size: 2rem; font-weight: 800; }
-    .stat-card-dark .stat-label  { font-size: 0.76rem; color: rgba(255,255,255,0.6); margin-top: 5px; }
+ /* Stats */
+ .stats-grid-6 { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; margin-bottom: 22px; }
+ .stat-card-dark {
+ background: #1A1A2E; color: #fff;
+ border-radius: 10px; padding: 18px 14px; text-align: center;
+ }
+ .stat-card-dark .stat-number { color: #FF6D00; font-size: 2rem; font-weight: 800; }
+ .stat-card-dark .stat-label { font-size: 0.76rem; color: rgba(255,255,255,0.6); margin-top: 5px; }
 
-    /* Filter bar */
-    .filter-bar {
-      display: flex; gap: 10px; flex-wrap: wrap;
-      align-items: center; margin-bottom: 16px;
-    }
-    .filter-bar select, .filter-bar input {
-      padding: 7px 11px; border: 1.5px solid #E0E0E0;
-      border-radius: 6px; font-size: 0.86rem;
-      background: #fff; outline: none; font-family: inherit;
-    }
-    .filter-bar select:focus, .filter-bar input:focus { border-color: #E65100; }
+ /* Filter bar */
+ .filter-bar {
+ display: flex; gap: 10px; flex-wrap: wrap;
+ align-items: center; margin-bottom: 16px;
+ }
+ .filter-bar select, .filter-bar input {
+ padding: 7px 11px; border: 1.5px solid #E0E0E0;
+ border-radius: 6px; font-size: 0.86rem;
+ background: #fff; outline: none; font-family: inherit;
+ }
+ .filter-bar select:focus, .filter-bar input:focus { border-color: #E65100; }
 
-    /* Applications table */
-    .app-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
-    .app-table th {
-      background: #1A1A2E; color: #fff;
-      padding: 10px 14px; text-align: left;
-      font-weight: 600; font-size: 0.78rem;
-      text-transform: uppercase; letter-spacing: 0.5px;
-    }
-    .app-table td { padding: 10px 14px; border-bottom: 1px solid #F0F0F0; vertical-align: middle; }
-    .app-table tr:hover td { background: #FFF3E0; }
-    .app-table tr:last-child td { border-bottom: none; }
+ /* Applications table */
+ .app-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+ .app-table th {
+ background: #1A1A2E; color: #fff;
+ padding: 10px 14px; text-align: left;
+ font-weight: 600; font-size: 0.78rem;
+ text-transform: uppercase; letter-spacing: 0.5px;
+ }
+ .app-table td { padding: 10px 14px; border-bottom: 1px solid #F0F0F0; vertical-align: middle; }
+ .app-table tr:hover td { background: #FFF3E0; }
+ .app-table tr:last-child td { border-bottom: none; }
 
-    .type-chip {
-      display: inline-block; padding: 2px 8px;
-      border-radius: 4px; font-size: 0.72rem; font-weight: 700;
-    }
-    .chip-LOR        { background:#E3F2FD; color:#1565C0; }
-    .chip-Bonafide   { background:#F3E5F5; color:#6A1B9A; }
-    .chip-Internship { background:#E8F5E9; color:#2E7D32; }
+ .type-chip {
+ display: inline-block; padding: 2px 8px;
+ border-radius: 4px; font-size: 0.72rem; font-weight: 700;
+ }
+ .chip-LOR { background:#E3F2FD; color:#1565C0; }
+ .chip-Bonafide { background:#F3E5F5; color:#6A1B9A; }
+ .chip-Internship { background:#E8F5E9; color:#2E7D32; }
 
-    /* Review modal */
-    .review-form { display: flex; flex-direction: column; gap: 14px; margin-top: 12px; }
-    .review-form textarea {
-      border: 1.5px solid #E0E0E0; border-radius: 6px;
-      padding: 9px 12px; font-size: 0.9rem; font-family: inherit;
-      resize: vertical; min-height: 80px; outline: none;
-    }
-    .review-form textarea:focus { border-color: #E65100; }
-    .review-btns { display: flex; gap: 10px; justify-content: flex-end; flex-wrap: wrap; }
+ /* Review modal */
+ .review-form { display: flex; flex-direction: column; gap: 14px; margin-top: 12px; }
+ .review-form textarea {
+ border: 1.5px solid #E0E0E0; border-radius: 6px;
+ padding: 9px 12px; font-size: 0.9rem; font-family: inherit;
+ resize: vertical; min-height: 80px; outline: none;
+ }
+ .review-form textarea:focus { border-color: #E65100; }
+ .review-btns { display: flex; gap: 10px; justify-content: flex-end; flex-wrap: wrap; }
 
-    .btn-approve { background: #2E7D32; color: #fff; }
-    .btn-approve:hover { background: #1B5E20; }
-    .btn-reject  { background: #C62828; color: #fff; }
-    .btn-reject:hover  { background: #B71C1C; }
+ .btn-approve { background: #2E7D32; color: #fff; }
+ .btn-approve:hover { background: #1B5E20; }
+ .btn-reject { background: #C62828; color: #fff; }
+ .btn-reject:hover { background: #B71C1C; }
 
-    /* Student table */
-    .student-table { width:100%; border-collapse:collapse; font-size:0.85rem; }
-    .student-table th {
-      background:#E65100; color:#fff; padding:10px 14px;
-      text-align:left; font-size:0.78rem; text-transform:uppercase; letter-spacing:0.5px;
-    }
-    .student-table td { padding:10px 14px; border-bottom:1px solid #F0F0F0; }
-    .student-table tr:hover td { background:#FFF3E0; }
+ /* Student table */
+ .student-table { width:100%; border-collapse:collapse; font-size:0.85rem; }
+ .student-table th {
+ background:#E65100; color:#fff; padding:10px 14px;
+ text-align:left; font-size:0.78rem; text-transform:uppercase; letter-spacing:0.5px;
+ }
+ .student-table td { padding:10px 14px; border-bottom:1px solid #F0F0F0; }
+ .student-table tr:hover td { background:#FFF3E0; }
 
-    .no-data { text-align:center; padding:40px 20px; color:#9E9E9E; font-size:0.9rem; }
-  </style>
+ .no-data { text-align:center; padding:40px 20px; color:#9E9E9E; font-size:0.9rem; }
+ </style>
 </head>
 <body>
 
 <!-- HEADER -->
 <header class="header admin-header">
-  <div class="header-brand">
-    <div class="header-icon">🛡️</div>
-    <div class="header-title">
-      <h1>Admin Panel — Academic Services Portal</h1>
-      <p>Manipal University Jaipur — Faculty / Administration Access</p>
-    </div>
-  </div>
-  <div class="header-user">
-    <a href="index.html" style="text-decoration:none;">
-      <div class="user-pill">← Student Portal</div>
-    </a>
-    <div class="user-pill" id="adminUserPill" style="display:none;">👤 admin</div>
-  </div>
+ <div class="header-brand">
+ <div class="header-icon"></div>
+ <div class="header-title">
+ <h1>Admin Panel — Academic Services Portal</h1>
+ <p>Manipal University Jaipur — Faculty / Administration Access</p>
+ </div>
+ </div>
+ <div class="header-user">
+ <a href="index.html" style="text-decoration:none;">
+ <div class="user-pill">← Student Portal</div>
+ </a>
+ <div class="user-pill" id="adminUserPill" style="display:none;"> admin</div>
+ </div>
 </header>
 
 <!-- LOGIN SCREEN -->
 <div id="loginScreen" class="login-wrap">
-  <div class="login-card">
-    <div class="login-icon">🔐</div>
-    <h2>Admin Login</h2>
-    <p>Enter your administrator credentials to access the panel.</p>
-    <div class="form-group" style="margin-bottom:14px;">
-      <label for="adminUser">Username</label>
-      <input type="text" id="adminUser" placeholder="admin" autocomplete="username"/>
-    </div>
-    <div class="form-group" style="margin-bottom:20px;">
-      <label for="adminPass">Password</label>
-      <input type="password" id="adminPass" placeholder="••••••••" autocomplete="current-password"
-             onkeydown="if(event.key==='Enter') AdminApp.login()"/>
-    </div>
-    <div id="loginErr" class="alert alert-error" style="display:none;margin-bottom:14px;">
-      <span class="alert-icon">❌</span><div id="loginErrMsg">Invalid credentials.</div>
-    </div>
-    <button class="btn btn-primary" style="width:100%;" onclick="AdminApp.login()">Login to Admin Panel</button>
-    <p style="text-align:center;margin-top:14px;font-size:0.8rem;color:#9E9E9E;">
-      Default: admin / admin123 &nbsp;|&nbsp; Change in backend .env
-    </p>
-  </div>
+ <div class="login-card">
+ <div class="login-icon"></div>
+ <h2>Admin Login</h2>
+ <p>Enter your administrator credentials to access the panel.</p>
+ <div class="form-group" style="margin-bottom:14px;">
+ <label for="adminUser">Username</label>
+ <input type="text" id="adminUser" placeholder="admin" autocomplete="username"/>
+ </div>
+ <div class="form-group" style="margin-bottom:20px;">
+ <label for="adminPass">Password</label>
+ <input type="password" id="adminPass" placeholder="••••••••" autocomplete="current-password"
+ onkeydown="if(event.key==='Enter') AdminApp.login()"/>
+ </div>
+ <div id="loginErr" class="alert alert-error" style="display:none;margin-bottom:14px;">
+ <span class="alert-icon"></span><div id="loginErrMsg">Invalid credentials.</div>
+ </div>
+ <button class="btn btn-primary" style="width:100%;" onclick="AdminApp.login()">Login to Admin Panel</button>
+ <p style="text-align:center;margin-top:14px;font-size:0.8rem;color:#9E9E9E;">
+ Default: admin / admin123 &nbsp;|&nbsp; Change in backend .env
+ </p>
+ </div>
 </div>
 
 <!-- ADMIN PANEL (shown after login) -->
 <div id="adminPanel" style="display:none;">
-  <div class="admin-layout">
+ <div class="admin-layout">
 
-    <!-- ADMIN SIDEBAR -->
-    <aside class="admin-sidebar">
-      <div class="admin-nav-section">Dashboard</div>
-      <div class="admin-nav-item active" id="anav-dashboard" onclick="AdminApp.navigate('dashboard')">
-        <span class="nav-icon">📊</span> Overview
-      </div>
+ <!-- ADMIN SIDEBAR -->
+ <aside class="admin-sidebar">
+ <div class="admin-nav-section">Dashboard</div>
+ <div class="admin-nav-item active" id="anav-dashboard" onclick="AdminApp.navigate('dashboard')">
+ <span class="nav-icon"></span> Overview
+ </div>
 
-      <div class="admin-nav-section">Applications</div>
-      <div class="admin-nav-item" id="anav-all" onclick="AdminApp.navigate('all')">
-        <span class="nav-icon">🗂️</span> All Applications
-      </div>
-      <div class="admin-nav-item" id="anav-lor" onclick="AdminApp.navigate('lor')">
-        <span class="nav-icon">📄</span> LOR Requests
-      </div>
-      <div class="admin-nav-item" id="anav-bonafide" onclick="AdminApp.navigate('bonafide')">
-        <span class="nav-icon">📜</span> Bonafide Requests
-      </div>
-      <div class="admin-nav-item" id="anav-internship" onclick="AdminApp.navigate('internship')">
-        <span class="nav-icon">💼</span> Internship Requests
-      </div>
+ <div class="admin-nav-section">Applications</div>
+ <div class="admin-nav-item" id="anav-all" onclick="AdminApp.navigate('all')">
+ <span class="nav-icon"></span> All Applications
+ </div>
+ <div class="admin-nav-item" id="anav-lor" onclick="AdminApp.navigate('lor')">
+ <span class="nav-icon"></span> LOR Requests
+ </div>
+ <div class="admin-nav-item" id="anav-bonafide" onclick="AdminApp.navigate('bonafide')">
+ <span class="nav-icon"></span> Bonafide Requests
+ </div>
+ <div class="admin-nav-item" id="anav-internship" onclick="AdminApp.navigate('internship')">
+ <span class="nav-icon"></span> Internship Requests
+ </div>
 
-      <div class="admin-nav-section">Students</div>
-      <div class="admin-nav-item" id="anav-students" onclick="AdminApp.navigate('students')">
-        <span class="nav-icon">👥</span> Registered Students
-      </div>
+ <div class="admin-nav-section">Students</div>
+ <div class="admin-nav-item" id="anav-students" onclick="AdminApp.navigate('students')">
+ <span class="nav-icon"></span> Registered Students
+ </div>
 
-      <div class="admin-logout">
-        <button class="btn btn-outline btn-sm" style="width:100%;" onclick="AdminApp.logout()">🚪 Logout</button>
-      </div>
-    </aside>
+ <div class="admin-logout">
+ <button class="btn btn-outline btn-sm" style="width:100%;" onclick="AdminApp.logout()"> Logout</button>
+ </div>
+ </aside>
 
-    <!-- ADMIN MAIN -->
-    <main class="admin-main">
+ <!-- ADMIN MAIN -->
+ <main class="admin-main">
 
-      <!-- DASHBOARD -->
-      <div class="admin-page active" id="apage-dashboard">
-        <div class="page-header">
-          <h2>📊 Overview</h2>
-          <p>Summary of all academic service applications.</p>
-        </div>
-        <div class="stats-grid-6" id="dashStats">
-          <div class="stat-card-dark"><div class="stat-number" id="ds-students">—</div><div class="stat-label">Registered Students</div></div>
-          <div class="stat-card-dark"><div class="stat-number" id="ds-total">—</div><div class="stat-label">Total Applications</div></div>
-          <div class="stat-card-dark"><div class="stat-number" id="ds-pending">—</div><div class="stat-label">Pending</div></div>
-          <div class="stat-card-dark"><div class="stat-number" id="ds-approved">—</div><div class="stat-label">Approved</div></div>
-          <div class="stat-card-dark"><div class="stat-number" id="ds-rejected">—</div><div class="stat-label">Rejected</div></div>
-          <div class="stat-card-dark"><div class="stat-number" id="ds-lor">—</div><div class="stat-label">LOR Applications</div></div>
-        </div>
-        <div class="card">
-          <div class="card-title"><span class="ct-icon">🕐</span>Recent Applications</div>
-          <div id="dashRecentApps"><p class="no-data">Loading…</p></div>
-        </div>
-      </div>
+ <!-- DASHBOARD -->
+ <div class="admin-page active" id="apage-dashboard">
+ <div class="page-header">
+ <h2> Overview</h2>
+ <p>Summary of all academic service applications.</p>
+ </div>
+ <div class="stats-grid-6" id="dashStats">
+ <div class="stat-card-dark"><div class="stat-number" id="ds-students">—</div><div class="stat-label">Registered Students</div></div>
+ <div class="stat-card-dark"><div class="stat-number" id="ds-total">—</div><div class="stat-label">Total Applications</div></div>
+ <div class="stat-card-dark"><div class="stat-number" id="ds-pending">—</div><div class="stat-label">Pending</div></div>
+ <div class="stat-card-dark"><div class="stat-number" id="ds-approved">—</div><div class="stat-label">Approved</div></div>
+ <div class="stat-card-dark"><div class="stat-number" id="ds-rejected">—</div><div class="stat-label">Rejected</div></div>
+ <div class="stat-card-dark"><div class="stat-number" id="ds-lor">—</div><div class="stat-label">LOR Applications</div></div>
+ </div>
+ <div class="card">
+ <div class="card-title"><span class="ct-icon"></span>Recent Applications</div>
+ <div id="dashRecentApps"><p class="no-data">Loading…</p></div>
+ </div>
+ </div>
 
-      <!-- ALL APPLICATIONS -->
-      <div class="admin-page" id="apage-all">
-        <div class="page-header">
-          <h2>🗂️ All Applications</h2>
-          <p>View and manage all submitted applications across all service types.</p>
-        </div>
-        <div class="card">
-          <div class="filter-bar">
-            <select id="filter-type" onchange="AdminApp.loadApps()">
-              <option value="">All Types</option>
-              <option value="LOR">LOR</option>
-              <option value="Bonafide">Bonafide</option>
-              <option value="Internship">Internship</option>
-            </select>
-            <select id="filter-status" onchange="AdminApp.loadApps()">
-              <option value="">All Statuses</option>
-              <option value="Pending">Pending</option>
-              <option value="Approved">Approved</option>
-              <option value="Rejected">Rejected</option>
-            </select>
-            <select id="filter-dept" onchange="AdminApp.loadApps()">
-              <option value="">All Departments</option>
-              <option value="CSE">CSE</option>
-              <option value="CCE">CCE</option>
-              <option value="ECE">ECE</option>
-            </select>
-            <button class="btn btn-outline btn-sm" onclick="AdminApp.loadApps()">🔄 Refresh</button>
-          </div>
-          <div style="overflow-x:auto;" id="appsTableWrap">
-            <p class="no-data">Loading applications…</p>
-          </div>
-        </div>
-      </div>
+ <!-- ALL APPLICATIONS -->
+ <div class="admin-page" id="apage-all">
+ <div class="page-header">
+ <h2> All Applications</h2>
+ <p>View and manage all submitted applications across all service types.</p>
+ </div>
+ <div class="card">
+ <div class="filter-bar">
+ <select id="filter-type" onchange="AdminApp.loadApps()">
+ <option value="">All Types</option>
+ <option value="LOR">LOR</option>
+ <option value="Bonafide">Bonafide</option>
+ <option value="Internship">Internship</option>
+ </select>
+ <select id="filter-status" onchange="AdminApp.loadApps()">
+ <option value="">All Statuses</option>
+ <option value="Pending">Pending</option>
+ <option value="Approved">Approved</option>
+ <option value="Rejected">Rejected</option>
+ </select>
+ <select id="filter-dept" onchange="AdminApp.loadApps()">
+ <option value="">All Departments</option>
+ <option value="CSE">CSE</option>
+ <option value="CCE">CCE</option>
+ <option value="ECE">ECE</option>
+ </select>
+ <button class="btn btn-outline btn-sm" onclick="AdminApp.loadApps()"> Refresh</button>
+ </div>
+ <div style="overflow-x:auto;" id="appsTableWrap">
+ <p class="no-data">Loading applications…</p>
+ </div>
+ </div>
+ </div>
 
-      <!-- LOR PAGE -->
-      <div class="admin-page" id="apage-lor">
-        <div class="page-header"><h2>📄 LOR Requests</h2><p>Manage Letter of Recommendation applications.</p></div>
-        <div class="card">
-          <div style="overflow-x:auto;" id="lorTableWrap"><p class="no-data">Loading…</p></div>
-        </div>
-      </div>
+ <!-- LOR PAGE -->
+ <div class="admin-page" id="apage-lor">
+ <div class="page-header"><h2> LOR Requests</h2><p>Manage Letter of Recommendation applications.</p></div>
+ <div class="card">
+ <div style="overflow-x:auto;" id="lorTableWrap"><p class="no-data">Loading…</p></div>
+ </div>
+ </div>
 
-      <!-- BONAFIDE PAGE -->
-      <div class="admin-page" id="apage-bonafide">
-        <div class="page-header"><h2>📜 Bonafide Requests</h2><p>Manage Bonafide Certificate requests.</p></div>
-        <div class="card">
-          <div style="overflow-x:auto;" id="bonTableWrap"><p class="no-data">Loading…</p></div>
-        </div>
-      </div>
+ <!-- BONAFIDE PAGE -->
+ <div class="admin-page" id="apage-bonafide">
+ <div class="page-header"><h2> Bonafide Requests</h2><p>Manage Bonafide Certificate requests.</p></div>
+ <div class="card">
+ <div style="overflow-x:auto;" id="bonTableWrap"><p class="no-data">Loading…</p></div>
+ </div>
+ </div>
 
-      <!-- INTERNSHIP PAGE -->
-      <div class="admin-page" id="apage-internship">
-        <div class="page-header"><h2>💼 Internship Requests</h2><p>Manage Internship Approval applications.</p></div>
-        <div class="card">
-          <div style="overflow-x:auto;" id="intTableWrap"><p class="no-data">Loading…</p></div>
-        </div>
-      </div>
+ <!-- INTERNSHIP PAGE -->
+ <div class="admin-page" id="apage-internship">
+ <div class="page-header"><h2> Internship Requests</h2><p>Manage Internship Approval applications.</p></div>
+ <div class="card">
+ <div style="overflow-x:auto;" id="intTableWrap"><p class="no-data">Loading…</p></div>
+ </div>
+ </div>
 
-      <!-- STUDENTS PAGE -->
-      <div class="admin-page" id="apage-students">
-        <div class="page-header"><h2>👥 Registered Students</h2><p>All students with verified profiles.</p></div>
-        <div class="card">
-          <div style="overflow-x:auto;" id="studentsTableWrap"><p class="no-data">Loading…</p></div>
-        </div>
-      </div>
+ <!-- STUDENTS PAGE -->
+ <div class="admin-page" id="apage-students">
+ <div class="page-header"><h2> Registered Students</h2><p>All students with verified profiles.</p></div>
+ <div class="card">
+ <div style="overflow-x:auto;" id="studentsTableWrap"><p class="no-data">Loading…</p></div>
+ </div>
+ </div>
 
-    </main>
-  </div>
+ </main>
+ </div>
 </div>
 
 <!-- REVIEW MODAL -->
 <div class="modal-overlay" id="reviewModal" onclick="if(event.target===this) closeReviewModal()">
-  <div class="modal" style="max-width:520px;">
-    <div class="modal-header">
-      <h3 id="reviewModalTitle">Review Application</h3>
-      <button class="modal-close" onclick="closeReviewModal()">✕</button>
-    </div>
-    <div id="reviewDetails" style="margin-bottom:14px;font-size:0.88rem;color:#555;"></div>
-    <div class="review-form">
-      <label style="font-size:0.76rem;font-weight:700;color:#757575;text-transform:uppercase;letter-spacing:0.4px;">
-        Admin Remarks (optional)
-      </label>
-      <textarea id="adminRemarks" placeholder="Add a note for the student (e.g. reason for rejection, instructions, etc.)"></textarea>
-      <div class="review-btns">
-        <button class="btn btn-ghost btn-sm" onclick="closeReviewModal()">Cancel</button>
-        <button class="btn btn-reject btn-sm" onclick="AdminApp.submitReview('Rejected')">✗ Reject</button>
-        <button class="btn btn-approve btn-sm" onclick="AdminApp.submitReview('Approved')">✓ Approve</button>
-      </div>
-    </div>
-  </div>
+ <div class="modal" style="max-width:520px;">
+ <div class="modal-header">
+ <h3 id="reviewModalTitle">Review Application</h3>
+ <button class="modal-close" onclick="closeReviewModal()"></button>
+ </div>
+ <div id="reviewDetails" style="margin-bottom:14px;font-size:0.88rem;color:#555;"></div>
+ <div class="review-form">
+ <label style="font-size:0.76rem;font-weight:700;color:#757575;text-transform:uppercase;letter-spacing:0.4px;">
+ Admin Remarks (optional)
+ </label>
+ <textarea id="adminRemarks" placeholder="Add a note for the student (e.g. reason for rejection, instructions, etc.)"></textarea>
+ <div class="review-btns">
+ <button class="btn btn-ghost btn-sm" onclick="closeReviewModal()">Cancel</button>
+ <button class="btn btn-reject btn-sm" onclick="AdminApp.submitReview('Rejected')"> Reject</button>
+ <button class="btn btn-approve btn-sm" onclick="AdminApp.submitReview('Approved')"> Approve</button>
+ </div>
+ </div>
+ </div>
 </div>
 
 <div id="toast"></div>
@@ -330,239 +330,239 @@
 <script>
 const API_BASE = "http://localhost:5000/api";
 
-// ── Simple API calls ────────────────────────────────────────
+// Simple API calls 
 async function apiCall(method, path, body=null) {
-  const opts = { method, headers:{"Content-Type":"application/json"}, credentials:"include" };
-  if (body) opts.body = JSON.stringify(body);
-  try {
-    const res  = await fetch(API_BASE + path, opts);
-    const data = await res.json();
-    return { ok: res.ok, data };
-  } catch(e) {
-    return { ok: false, data: { message: "Backend not reachable. Make sure Flask is running." } };
-  }
+ const opts = { method, headers:{"Content-Type":"application/json"}, credentials:"include" };
+ if (body) opts.body = JSON.stringify(body);
+ try {
+ const res = await fetch(API_BASE + path, opts);
+ const data = await res.json();
+ return { ok: res.ok, data };
+ } catch(e) {
+ return { ok: false, data: { message: "Backend not reachable. Make sure Flask is running." } };
+ }
 }
 
-// ── Toast ────────────────────────────────────────────────────
+// Toast 
 function showToast(msg, type="info") {
-  const el = document.getElementById("toast");
-  const icons = {success:"✅",error:"❌",warning:"⚠️",info:"ℹ️"};
-  el.innerHTML = `<span>${icons[type]||""}</span> ${msg}`;
-  el.className = `t-${type}`;
-  el.classList.add("show");
-  setTimeout(() => el.classList.remove("show"), 4000);
+ const el = document.getElementById("toast");
+ const icons = {success:"",error:"",warning:"",info:"ℹ"};
+ el.innerHTML = `<span>${icons[type]||""}</span> ${msg}`;
+ el.className = `t-${type}`;
+ el.classList.add("show");
+ setTimeout(() => el.classList.remove("show"), 4000);
 }
 
-// ── Review Modal ─────────────────────────────────────────────
+// Review Modal 
 let _reviewApp = null;
 
 function openReviewModal(app) {
-  _reviewApp = app;
-  document.getElementById("reviewModalTitle").textContent = `Review — ${app.application_id}`;
-  document.getElementById("adminRemarks").value = app.admin_remarks || "";
+ _reviewApp = app;
+ document.getElementById("reviewModalTitle").textContent = `Review — ${app.application_id}`;
+ document.getElementById("adminRemarks").value = app.admin_remarks || "";
 
-  let details = `<strong>Student:</strong> ${app.student_name} &bull; ${app.department}<br/>
-    <strong>Type:</strong> ${app.type} &bull; <strong>Current Status:</strong>
-    <span class="status-pill status-${app.status}">${app.status}</span><br/>
-    <strong>Submitted:</strong> ${app.submitted_on}<br/>`;
-  if (app.type === "LOR")
-    details += `<strong>Faculty:</strong> ${app.faculty_name} &bull; ${app.purpose}`;
-  else if (app.type === "Bonafide")
-    details += `<strong>Purpose:</strong> ${app.purpose}`;
-  else if (app.type === "Internship")
-    details += `<strong>Company:</strong> ${app.company_name} &bull; ${app.internship_role}`;
+ let details = `<strong>Student:</strong> ${app.student_name} &bull; ${app.department}<br/>
+ <strong>Type:</strong> ${app.type} &bull; <strong>Current Status:</strong>
+ <span class="status-pill status-${app.status}">${app.status}</span><br/>
+ <strong>Submitted:</strong> ${app.submitted_on}<br/>`;
+ if (app.type === "LOR")
+ details += `<strong>Faculty:</strong> ${app.faculty_name} &bull; ${app.purpose}`;
+ else if (app.type === "Bonafide")
+ details += `<strong>Purpose:</strong> ${app.purpose}`;
+ else if (app.type === "Internship")
+ details += `<strong>Company:</strong> ${app.company_name} &bull; ${app.internship_role}`;
 
-  document.getElementById("reviewDetails").innerHTML = details;
-  document.getElementById("reviewModal").classList.add("open");
+ document.getElementById("reviewDetails").innerHTML = details;
+ document.getElementById("reviewModal").classList.add("open");
 }
 
 function closeReviewModal() {
-  document.getElementById("reviewModal").classList.remove("open");
-  _reviewApp = null;
+ document.getElementById("reviewModal").classList.remove("open");
+ _reviewApp = null;
 }
 
-// ── Status pill helper ───────────────────────────────────────
+// Status pill helper 
 function statusPill(s) {
-  return `<span class="status-pill status-${s}">${s}</span>`;
+ return `<span class="status-pill status-${s}">${s}</span>`;
 }
 
-// ── Build applications table ─────────────────────────────────
+// Build applications table 
 function buildAppsTable(apps) {
-  if (!apps.length) return `<p class="no-data">No applications found.</p>`;
-  return `<table class="app-table">
-    <thead><tr>
-      <th>App ID</th><th>Type</th><th>Student</th>
-      <th>Dept</th><th>Details</th><th>Submitted</th>
-      <th>Status</th><th>Action</th>
-    </tr></thead>
-    <tbody>
-    ${apps.map(a => {
-      const detail = a.type==="LOR"
-        ? a.faculty_name
-        : a.type==="Bonafide"
-          ? a.purpose
-          : a.company_name + " · " + a.internship_role;
-      return `<tr>
-        <td style="font-family:monospace;font-size:0.8rem;">${a.application_id}</td>
-        <td><span class="type-chip chip-${a.type}">${a.type}</span></td>
-        <td>${a.student_name}</td>
-        <td>${a.department}</td>
-        <td style="max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${detail}">${detail}</td>
-        <td style="font-size:0.78rem;color:#757575;">${a.submitted_on}</td>
-        <td>${statusPill(a.status)}</td>
-        <td>
-          <button class="btn btn-primary btn-sm"
-            onclick='openReviewModal(${JSON.stringify(a).replace(/'/g,"&#39;")})'>
-            Review
-          </button>
-        </td>
-      </tr>`;
-    }).join("")}
-    </tbody>
-  </table>`;
+ if (!apps.length) return `<p class="no-data">No applications found.</p>`;
+ return `<table class="app-table">
+ <thead><tr>
+ <th>App ID</th><th>Type</th><th>Student</th>
+ <th>Dept</th><th>Details</th><th>Submitted</th>
+ <th>Status</th><th>Action</th>
+ </tr></thead>
+ <tbody>
+ ${apps.map(a => {
+ const detail = a.type==="LOR"
+ ? a.faculty_name
+ : a.type==="Bonafide"
+ ? a.purpose
+ : a.company_name + " · " + a.internship_role;
+ return `<tr>
+ <td style="font-family:monospace;font-size:0.8rem;">${a.application_id}</td>
+ <td><span class="type-chip chip-${a.type}">${a.type}</span></td>
+ <td>${a.student_name}</td>
+ <td>${a.department}</td>
+ <td style="max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${detail}">${detail}</td>
+ <td style="font-size:0.78rem;color:#757575;">${a.submitted_on}</td>
+ <td>${statusPill(a.status)}</td>
+ <td>
+ <button class="btn btn-primary btn-sm"
+ onclick='openReviewModal(${JSON.stringify(a).replace(/'/g,"&#39;")})'>
+ Review
+ </button>
+ </td>
+ </tr>`;
+ }).join("")}
+ </tbody>
+ </table>`;
 }
 
-// ── Build students table ─────────────────────────────────────
+// Build students table 
 function buildStudentsTable(students) {
-  if (!students.length) return `<p class="no-data">No registered students yet.</p>`;
-  return `<table class="student-table">
-    <thead><tr>
-      <th>Registration ID</th><th>Name</th><th>Program</th>
-      <th>Dept</th><th>CGPA</th><th>College Email</th><th>Registered On</th>
-    </tr></thead>
-    <tbody>
-    ${students.map(s => `<tr>
-      <td style="font-family:monospace;">${s.registration_id}</td>
-      <td>${s.full_name}</td>
-      <td>${s.program_type}</td>
-      <td>${s.department}</td>
-      <td>${s.cgpa}</td>
-      <td style="font-size:0.82rem;">${s.college_email}</td>
-      <td style="font-size:0.78rem;color:#757575;">${s.created_at}</td>
-    </tr>`).join("")}
-    </tbody>
-  </table>`;
+ if (!students.length) return `<p class="no-data">No registered students yet.</p>`;
+ return `<table class="student-table">
+ <thead><tr>
+ <th>Registration ID</th><th>Name</th><th>Program</th>
+ <th>Dept</th><th>CGPA</th><th>College Email</th><th>Registered On</th>
+ </tr></thead>
+ <tbody>
+ ${students.map(s => `<tr>
+ <td style="font-family:monospace;">${s.registration_id}</td>
+ <td>${s.full_name}</td>
+ <td>${s.program_type}</td>
+ <td>${s.department}</td>
+ <td>${s.cgpa}</td>
+ <td style="font-size:0.82rem;">${s.college_email}</td>
+ <td style="font-size:0.78rem;color:#757575;">${s.created_at}</td>
+ </tr>`).join("")}
+ </tbody>
+ </table>`;
 }
 
-// ── AdminApp ─────────────────────────────────────────────────
+// AdminApp 
 const AdminApp = {
-  async login() {
-    const username = document.getElementById("adminUser").value.trim();
-    const password = document.getElementById("adminPass").value.trim();
-    document.getElementById("loginErr").style.display = "none";
+ async login() {
+ const username = document.getElementById("adminUser").value.trim();
+ const password = document.getElementById("adminPass").value.trim();
+ document.getElementById("loginErr").style.display = "none";
 
-    const { ok, data } = await apiCall("POST", "/admin/login", { username, password });
-    if (ok) {
-      document.getElementById("loginScreen").style.display = "none";
-      document.getElementById("adminPanel").style.display  = "block";
-      document.getElementById("adminUserPill").style.display = "flex";
-      document.getElementById("adminUserPill").textContent = "👤 " + username;
-      this.navigate("dashboard");
-    } else {
-      document.getElementById("loginErr").style.display = "flex";
-      document.getElementById("loginErrMsg").textContent = data.message || "Invalid credentials.";
-    }
-  },
+ const { ok, data } = await apiCall("POST", "/admin/login", { username, password });
+ if (ok) {
+ document.getElementById("loginScreen").style.display = "none";
+ document.getElementById("adminPanel").style.display = "block";
+ document.getElementById("adminUserPill").style.display = "flex";
+ document.getElementById("adminUserPill").textContent = " " + username;
+ this.navigate("dashboard");
+ } else {
+ document.getElementById("loginErr").style.display = "flex";
+ document.getElementById("loginErrMsg").textContent = data.message || "Invalid credentials.";
+ }
+ },
 
-  async logout() {
-    await apiCall("POST", "/admin/logout");
-    document.getElementById("adminPanel").style.display  = "none";
-    document.getElementById("loginScreen").style.display = "flex";
-    document.getElementById("adminUserPill").style.display = "none";
-    document.getElementById("adminUser").value = "";
-    document.getElementById("adminPass").value = "";
-  },
+ async logout() {
+ await apiCall("POST", "/admin/logout");
+ document.getElementById("adminPanel").style.display = "none";
+ document.getElementById("loginScreen").style.display = "flex";
+ document.getElementById("adminUserPill").style.display = "none";
+ document.getElementById("adminUser").value = "";
+ document.getElementById("adminPass").value = "";
+ },
 
-  navigate(page) {
-    document.querySelectorAll(".admin-page").forEach(p => p.classList.remove("active"));
-    document.querySelectorAll(".admin-nav-item").forEach(n => n.classList.remove("active"));
-    const pg = document.getElementById("apage-" + page);
-    const nv = document.getElementById("anav-" + page);
-    if (pg) pg.classList.add("active");
-    if (nv) nv.classList.add("active");
+ navigate(page) {
+ document.querySelectorAll(".admin-page").forEach(p => p.classList.remove("active"));
+ document.querySelectorAll(".admin-nav-item").forEach(n => n.classList.remove("active"));
+ const pg = document.getElementById("apage-" + page);
+ const nv = document.getElementById("anav-" + page);
+ if (pg) pg.classList.add("active");
+ if (nv) nv.classList.add("active");
 
-    if (page === "dashboard")  this.loadDashboard();
-    if (page === "all")        this.loadApps();
-    if (page === "lor")        this.loadTypeApps("lor", "lorTableWrap", "LOR");
-    if (page === "bonafide")   this.loadTypeApps("bonafide", "bonTableWrap", "Bonafide");
-    if (page === "internship") this.loadTypeApps("internship", "intTableWrap", "Internship");
-    if (page === "students")   this.loadStudents();
-  },
+ if (page === "dashboard") this.loadDashboard();
+ if (page === "all") this.loadApps();
+ if (page === "lor") this.loadTypeApps("lor", "lorTableWrap", "LOR");
+ if (page === "bonafide") this.loadTypeApps("bonafide", "bonTableWrap", "Bonafide");
+ if (page === "internship") this.loadTypeApps("internship", "intTableWrap", "Internship");
+ if (page === "students") this.loadStudents();
+ },
 
-  async loadDashboard() {
-    const { ok, data } = await apiCall("GET", "/admin/dashboard");
-    if (!ok) { showToast(data.message || "Failed to load dashboard.", "error"); return; }
-    document.getElementById("ds-students").textContent  = data.total_students;
-    document.getElementById("ds-total").textContent     = data.total_applications;
-    document.getElementById("ds-pending").textContent   = data.pending;
-    document.getElementById("ds-approved").textContent  = data.approved;
-    document.getElementById("ds-rejected").textContent  = data.rejected;
-    document.getElementById("ds-lor").textContent       = data.lor_count;
+ async loadDashboard() {
+ const { ok, data } = await apiCall("GET", "/admin/dashboard");
+ if (!ok) { showToast(data.message || "Failed to load dashboard.", "error"); return; }
+ document.getElementById("ds-students").textContent = data.total_students;
+ document.getElementById("ds-total").textContent = data.total_applications;
+ document.getElementById("ds-pending").textContent = data.pending;
+ document.getElementById("ds-approved").textContent = data.approved;
+ document.getElementById("ds-rejected").textContent = data.rejected;
+ document.getElementById("ds-lor").textContent = data.lor_count;
 
-    // Load recent apps
-    const r = await apiCall("GET", "/admin/applications");
-    const recent = r.ok ? r.data.applications.slice(0, 5) : [];
-    document.getElementById("dashRecentApps").innerHTML =
-      recent.length ? buildAppsTable(recent) : `<p class="no-data">No applications yet.</p>`;
-  },
+ // Load recent apps
+ const r = await apiCall("GET", "/admin/applications");
+ const recent = r.ok ? r.data.applications.slice(0, 5) : [];
+ document.getElementById("dashRecentApps").innerHTML =
+ recent.length ? buildAppsTable(recent) : `<p class="no-data">No applications yet.</p>`;
+ },
 
-  async loadApps() {
-    const type   = document.getElementById("filter-type")?.value   || "";
-    const status = document.getElementById("filter-status")?.value || "";
-    const dept   = document.getElementById("filter-dept")?.value   || "";
-    let query    = "";
-    const params = [];
-    if (type)   params.push(`type=${type}`);
-    if (status) params.push(`status=${status}`);
-    if (dept)   params.push(`department=${dept}`);
-    if (params.length) query = "?" + params.join("&");
+ async loadApps() {
+ const type = document.getElementById("filter-type")?.value || "";
+ const status = document.getElementById("filter-status")?.value || "";
+ const dept = document.getElementById("filter-dept")?.value || "";
+ let query = "";
+ const params = [];
+ if (type) params.push(`type=${type}`);
+ if (status) params.push(`status=${status}`);
+ if (dept) params.push(`department=${dept}`);
+ if (params.length) query = "?" + params.join("&");
 
-    const { ok, data } = await apiCall("GET", `/admin/applications${query}`);
-    document.getElementById("appsTableWrap").innerHTML = ok
-      ? buildAppsTable(data.applications)
-      : `<p class="no-data">${data.message}</p>`;
-  },
+ const { ok, data } = await apiCall("GET", `/admin/applications${query}`);
+ document.getElementById("appsTableWrap").innerHTML = ok
+ ? buildAppsTable(data.applications)
+ : `<p class="no-data">${data.message}</p>`;
+ },
 
-  async loadTypeApps(type, wrapperId, typeLabel) {
-    const { ok, data } = await apiCall("GET", `/admin/applications?type=${typeLabel}`);
-    document.getElementById(wrapperId).innerHTML = ok
-      ? buildAppsTable(data.applications)
-      : `<p class="no-data">${data.message}</p>`;
-  },
+ async loadTypeApps(type, wrapperId, typeLabel) {
+ const { ok, data } = await apiCall("GET", `/admin/applications?type=${typeLabel}`);
+ document.getElementById(wrapperId).innerHTML = ok
+ ? buildAppsTable(data.applications)
+ : `<p class="no-data">${data.message}</p>`;
+ },
 
-  async loadStudents() {
-    const { ok, data } = await apiCall("GET", "/admin/students");
-    document.getElementById("studentsTableWrap").innerHTML = ok
-      ? buildStudentsTable(data.students)
-      : `<p class="no-data">${data.message}</p>`;
-  },
+ async loadStudents() {
+ const { ok, data } = await apiCall("GET", "/admin/students");
+ document.getElementById("studentsTableWrap").innerHTML = ok
+ ? buildStudentsTable(data.students)
+ : `<p class="no-data">${data.message}</p>`;
+ },
 
-  async submitReview(status) {
-    if (!_reviewApp) return;
-    const remarks = document.getElementById("adminRemarks").value.trim();
-    const payload = {
-      application_id: _reviewApp.application_id,
-      type:           _reviewApp.type,
-      status,
-      remarks,
-    };
-    const { ok, data } = await apiCall("POST", "/admin/review", payload);
-    if (ok) {
-      showToast(`Application ${_reviewApp.application_id} ${status}!`,
-        status === "Approved" ? "success" : "warning");
-      closeReviewModal();
-      // Refresh current page
-      const activePage = document.querySelector(".admin-nav-item.active");
-      if (activePage) activePage.click();
-    } else {
-      showToast(data.message || "Review failed.", "error");
-    }
-  }
+ async submitReview(status) {
+ if (!_reviewApp) return;
+ const remarks = document.getElementById("adminRemarks").value.trim();
+ const payload = {
+ application_id: _reviewApp.application_id,
+ type: _reviewApp.type,
+ status,
+ remarks,
+ };
+ const { ok, data } = await apiCall("POST", "/admin/review", payload);
+ if (ok) {
+ showToast(`Application ${_reviewApp.application_id} ${status}!`,
+ status === "Approved" ? "success" : "warning");
+ closeReviewModal();
+ // Refresh current page
+ const activePage = document.querySelector(".admin-nav-item.active");
+ if (activePage) activePage.click();
+ } else {
+ showToast(data.message || "Review failed.", "error");
+ }
+ }
 };
 
 // Enter key on login
 document.getElementById("adminUser").addEventListener("keydown", e => {
-  if (e.key === "Enter") AdminApp.login();
+ if (e.key === "Enter") AdminApp.login();
 });
 </script>
 </body>
